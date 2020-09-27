@@ -24,7 +24,7 @@ composer require sourecode/semantic-version
 ## Coding Standards
 
 ```
-./vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix
+php-cs-fixer fix
 ```
 
 ## Static analysis
