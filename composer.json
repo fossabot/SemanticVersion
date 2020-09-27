@@ -1,0 +1,35 @@
+{
+  "name": "sourecode/semantic-version",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "chapterjason",
+      "email": "jason@sourecode.dev"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "SoureCode\\SemanticVersion\\": "./src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "SoureCode\\SemanticVersion\\Tests\\": "./Tests/"
+    }
+  },
+  "require": {
+    "php": ">=7.4"
+  },
+  "require-dev": {
+    "vimeo/psalm": "^3.16",
+    "friendsofphp/php-cs-fixer": "^v2.16",
+    "phpunit/phpunit": "^9.3"
+  },
+  "minimum-stability": "dev",
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.1-dev"
+    }
+  }
+}
