@@ -14,9 +14,11 @@ use function array_values;
 use function explode;
 use function implode;
 use function is_numeric;
+use function max;
 use function preg_match;
 use const PREG_UNMATCHED_AS_NULL;
 use SoureCode\SemanticVersion\Exception\InvalidArgumentException;
+use function sprintf;
 
 /**
  * Immutable Version.
@@ -25,10 +27,17 @@ use SoureCode\SemanticVersion\Exception\InvalidArgumentException;
  */
 final class Version
 {
-    /**
-     * @see https://semver.org/
-     */
-    private static string $expression = "/^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/";
+    public static string $majorExpression = '(?P<major>0|[1-9]\d*)';
+
+    public static string $minorExpression = '(?P<minor>0|[1-9]\d*)';
+
+    public static string $patchExpression = '(?P<patch>0|[1-9]\d*)';
+
+    public static string $preReleaseExpression = '(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*)';
+
+    public static string $buildMetadataExpression = '(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*)';
+
+    private static ?string $expression = null;
 
     private int $major;
 
@@ -57,7 +66,7 @@ final class Version
 
     public static function fromString(string $version): self
     {
-        $matched = preg_match(self::$expression, $version, $matches, PREG_UNMATCHED_AS_NULL);
+        $matched = preg_match(self::getExpression(), $version, $matches, PREG_UNMATCHED_AS_NULL);
 
         if (0 === $matched || null === $matches['major'] || null === $matches['minor'] || null === $matches['patch']) {
             throw new InvalidArgumentException(sprintf('The "%s" version is invalid.', $version));
@@ -72,12 +81,31 @@ final class Version
         );
     }
 
-    public function compare(self $version): int
+    /**
+     * @see https://semver.org/
+     */
+    private static function getExpression(): string
     {
-        return static::comp($this, $version);
+        if (!static::$expression) {
+            static::$expression = sprintf(
+                "/^%s\.%s\.%s(?:-%s)?(?:\+%s)?$/",
+                static::$majorExpression,
+                static::$minorExpression,
+                static::$patchExpression,
+                static::$preReleaseExpression,
+                static::$buildMetadataExpression
+            );
+        }
+
+        return static::$expression;
     }
 
-    public static function comp(self $versionA, self $versionB): int
+    public function compare(self $version): int
+    {
+        return static::compareVersion($this, $version);
+    }
+
+    public static function compareVersion(self $versionA, self $versionB): int
     {
         if ($versionA === $versionB) {
             return 0;
