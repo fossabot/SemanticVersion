@@ -84,7 +84,7 @@ final class Version
     /**
      * @see https://semver.org/
      */
-    private static function getExpression(): string
+    public static function getExpression(): string
     {
         if (!static::$expression) {
             static::$expression = sprintf(
