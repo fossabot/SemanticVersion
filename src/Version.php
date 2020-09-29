@@ -66,7 +66,7 @@ final class Version
 
     public static function fromString(string $version): self
     {
-        $matched = preg_match(self::getExpression(), $version, $matches, PREG_UNMATCHED_AS_NULL);
+        $matched = preg_match(sprintf("/^%s$/", self::getExpression()), $version, $matches, PREG_UNMATCHED_AS_NULL);
 
         if (0 === $matched || null === $matches['major'] || null === $matches['minor'] || null === $matches['patch']) {
             throw new InvalidArgumentException(sprintf('The "%s" version is invalid.', $version));
@@ -88,7 +88,7 @@ final class Version
     {
         if (!static::$expression) {
             static::$expression = sprintf(
-                "/^%s\.%s\.%s(?:-%s)?(?:\+%s)?$/",
+                "%s\.%s\.%s(?:-%s)?(?:\+%s)?",
                 static::$majorExpression,
                 static::$minorExpression,
                 static::$patchExpression,
