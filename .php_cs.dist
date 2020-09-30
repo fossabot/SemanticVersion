@@ -14,6 +14,12 @@ return PhpCsFixer\Config::create()
             'protected_to_private' => false,
             'native_constant_invocation' => true,
             'combine_nested_dirname' => true,
+            'fully_qualified_strict_types' => true,
+            'global_namespace_import' => [
+                'import_classes' => true,
+                'import_constants' => true,
+                'import_functions' => true,
+            ],
         ]
     )
     ->setRiskyAllowed(true)

@@ -10,15 +10,16 @@
 
 namespace SoureCode\SemanticVersion;
 
+use function array_key_exists;
 use function array_values;
+use function count;
 use function explode;
 use function implode;
-use function is_numeric;
 use function max;
 use function preg_match;
+use function sprintf;
 use const PREG_UNMATCHED_AS_NULL;
 use SoureCode\SemanticVersion\Exception\InvalidArgumentException;
-use function sprintf;
 
 /**
  * Immutable Version.
@@ -66,7 +67,7 @@ final class Version
 
     public static function fromString(string $version): self
     {
-        $matched = preg_match(sprintf("/^%s$/", self::getExpression()), $version, $matches, PREG_UNMATCHED_AS_NULL);
+        $matched = preg_match(sprintf('/^%s$/', self::getExpression()), $version, $matches, PREG_UNMATCHED_AS_NULL);
 
         if (0 === $matched || null === $matches['major'] || null === $matches['minor'] || null === $matches['patch']) {
             throw new InvalidArgumentException(sprintf('The "%s" version is invalid.', $version));
@@ -169,8 +170,8 @@ final class Version
 
     private static function comparePreRelease(self $versionA, self $versionB): int
     {
-        $aLength = \count($versionA->preRelease);
-        $bLength = \count($versionB->preRelease);
+        $aLength = count($versionA->preRelease);
+        $bLength = count($versionB->preRelease);
 
         if ($aLength && !$bLength) {
             return -1;
@@ -183,8 +184,8 @@ final class Version
         $length = max($aLength, $bLength);
 
         for ($index = 0; $index <= $length; ++$index) {
-            $aHasKey = \array_key_exists($index, $versionA->preRelease);
-            $bHasKey = \array_key_exists($index, $versionB->preRelease);
+            $aHasKey = array_key_exists($index, $versionA->preRelease);
+            $bHasKey = array_key_exists($index, $versionB->preRelease);
 
             if (!$bHasKey) {
                 return 1;
@@ -296,11 +297,11 @@ final class Version
     {
         $version = sprintf('%d.%d.%d', $this->major, $this->minor, $this->patch);
 
-        if (\count($this->preRelease) > 0) {
+        if (count($this->preRelease) > 0) {
             $version .= '-'.implode('.', $this->preRelease);
         }
 
-        if (\count($this->buildMetadata) > 0) {
+        if (count($this->buildMetadata) > 0) {
             $version .= '+'.implode('.', $this->buildMetadata);
         }
 
