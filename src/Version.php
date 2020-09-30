@@ -17,9 +17,9 @@ use function explode;
 use function implode;
 use function max;
 use function preg_match;
-use function sprintf;
 use const PREG_UNMATCHED_AS_NULL;
 use SoureCode\SemanticVersion\Exception\InvalidArgumentException;
+use function sprintf;
 
 /**
  * Immutable Version.
