@@ -1,4 +1,4 @@
-name: "Check"
+name: "CI"
 
 on:
   pull_request:
@@ -13,7 +13,7 @@ on:
       - v*
 
 jobs:
-  check:
+  ci:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
@@ -24,7 +24,7 @@ jobs:
         with:
           php-version: '7.4'
           tools: composer, cs2pr, php-cs-fixer:2.16.4
-          coverage: xdebug
+          coverage: pcov
 
       - name: Setup problem matchers for PHPUnit
         run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
@@ -44,10 +44,15 @@ jobs:
         run: composer install --prefer-dist
 
       - name: Psalm
-        run: vendor/bin/psalm --output-format=checkstyle | cs2pr
+        run: vendor/bin/psalm --output-format=checkstyle --shepherd | cs2pr
 
       - name: PHP CS Fixer
         run: php-cs-fixer fix --format=checkstyle | cs2pr
 
-      - name: Tests
-        run: vendor/bin/phpunit
+      - name: Test
+        run: vendor/bin/phpunit --coverage-clover coverage.xml
+
+      - uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.xml

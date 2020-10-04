@@ -4,7 +4,8 @@
 [![Latest Stable Version](https://poser.pugx.org/sourecode/semantic-version/v)](//packagist.org/packages/sourecode/semantic-version)
 [![Total Downloads](https://poser.pugx.org/sourecode/semantic-version/downloads)](//packagist.org/packages/sourecode/semantic-version)
 [![Latest Unstable Version](https://poser.pugx.org/sourecode/semantic-version/v/unstable)](//packagist.org/packages/sourecode/semantic-version)
-[![License](https://poser.pugx.org/sourecode/semantic-version/license)](//packagist.org/packages/sourecode/semantic-version)
+[![CI Status](https://github.com/sourecode/version/workflows/CI/badge.svg)](https://github.com/sourecode/version/actions)
+[![Type Coverage](https://shepherd.dev/github/sourecode/version/coverage.svg)](https://shepherd.dev/github/sourecode/version)
 
 A simple wrapper for [SemVer](https://semver.org/).
 
