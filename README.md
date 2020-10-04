@@ -1,10 +1,10 @@
-
 # SoureCode/SemanticVersion
 
 [![Latest Stable Version](https://poser.pugx.org/sourecode/semantic-version/v)](//packagist.org/packages/sourecode/semantic-version)
 [![Total Downloads](https://poser.pugx.org/sourecode/semantic-version/downloads)](//packagist.org/packages/sourecode/semantic-version)
 [![Latest Unstable Version](https://poser.pugx.org/sourecode/semantic-version/v/unstable)](//packagist.org/packages/sourecode/semantic-version)
 [![License](https://poser.pugx.org/sourecode/semantic-version/license)](//packagist.org/packages/sourecode/semantic-version)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSoureCode%2FSemanticVersion.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FSoureCode%2FSemanticVersion?ref=badge_shield)
 
 A simple wrapper for [SemVer](https://semver.org/).
 
@@ -37,3 +37,7 @@ php-cs-fixer fix
 ```
 ./vendor/bin/psalm
 ```
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSoureCode%2FSemanticVersion.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FSoureCode%2FSemanticVersion?ref=badge_large)
